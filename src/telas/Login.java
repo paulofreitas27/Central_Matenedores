@@ -138,6 +138,8 @@ public class Login extends javax.swing.JFrame {
                 txtLogin.setText("");
                 txtSenha.setText("");
                 txtLogin.requestFocus();
+            } else if (!this.usu.isAtivo()) {
+                Mensagens.atenção("Usuario informado desativado pelo Administrdor do Sistema.");
             } else if (!this.usu.getSenha().equals(getSenha())) {
                 Mensagens.atenção("Senha incorreta.");
                 txtSenha.setText("");
