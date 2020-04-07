@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="223" pageHeight="566" columnWidth="183" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="19" uuid="36824ede-ce3a-4abc-98be-59a27e8db4f7">
+	<property name="ireport.zoom" value="2.3579476910000023"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="boleto_codigo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     usuario.`nome` AS usuario_nome,
+     boleto.`valor` AS boleto_valor,
+     pagamento.`data_pagamento` AS pagamento_data_pagamento,
+     projeto.`nome` AS projeto_nome,
+     membro.`nome` AS membro_nome,
+     membro.`fone` AS membro_fone,
+     forma_pagamento.`nome` AS forma_pagamento_nome,
+     pagamento.`valor` AS pagamento_valor
+FROM
+     `usuario` usuario INNER JOIN `caixa` caixa ON usuario.`cpf` = caixa.`usuario_cpf`
+     INNER JOIN `compromisso` compromisso ON usuario.`cpf` = compromisso.`usuario_cpf`
+     INNER JOIN `boleto` boleto ON compromisso.`codigo` = boleto.`compromisso_codigo`
+     INNER JOIN `membro` membro ON compromisso.`membro_codigo` = membro.`codigo`
+     INNER JOIN `projeto` projeto ON compromisso.`projeto_codigo` = projeto.`codigo`
+     INNER JOIN `pagamento` pagamento ON boleto.`codigo` = pagamento.`boleto_codigo`
+     AND caixa.`codigo` = pagamento.`caixa_codigo`
+     INNER JOIN `forma_pagamento` forma_pagamento ON pagamento.`forma_pagamento_codigo` = forma_pagamento.`codigo`
+WHERE
+     boleto.codigo = $P{boleto_codigo}]]>
+	</queryString>
+	<field name="usuario_nome" class="java.lang.String"/>
+	<field name="boleto_valor" class="java.math.BigDecimal"/>
+	<field name="pagamento_data_pagamento" class="java.sql.Timestamp"/>
+	<field name="projeto_nome" class="java.lang.String"/>
+	<field name="membro_nome" class="java.lang.String"/>
+	<field name="membro_fone" class="java.lang.String"/>
+	<field name="forma_pagamento_nome" class="java.lang.String"/>
+	<field name="pagamento_valor" class="java.math.BigDecimal"/>
+	<variable name="pagamento_valor_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{pagamento_valor}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="83" splitType="Stretch">
+			<image>
+				<reportElement x="57" y="0" width="75" height="83" uuid="fb1c8955-8070-4528-a60d-8dc66da5ce5b"/>
+				<imageExpression><![CDATA["logo.jpeg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement mode="Transparent" x="0" y="0" width="183" height="22" forecolor="#000000" backcolor="#FFFFFF" uuid="ca3750c8-dcf6-4931-bdd1-81a3defecbf3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{projeto_nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="63" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="183" height="1" uuid="de470518-5cce-41aa-87fa-2e78c246e192"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="1" width="183" height="12" uuid="6dbae85c-c370-40d5-9553-b562a8db7b4a"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{membro_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="13" width="183" height="12" uuid="e332e2e6-d17d-47aa-9bb7-4c36062f1fd0"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{membro_fone}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="25" width="183" height="1" uuid="eb671b65-5914-493b-af05-975af4e97020"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="38" width="183" height="25" uuid="2970f229-40de-4843-b808-bdf3863e832d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Recibo]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="26" width="183" height="12" uuid="841afb13-08f6-4f27-8be6-a88e37885153"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pagamento_data_pagamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="104" height="15" uuid="204b1ebd-0724-4e89-9538-fa9b19123de5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{forma_pagamento_nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="104" y="0" width="79" height="15" uuid="923e9b6d-cbd4-4cd6-830a-62c5c2c494b1"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pagamento_valor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="62">
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="104" height="24" forecolor="#000000" backcolor="#FFFFFF" uuid="e97f94b7-7dd2-46c6-aaff-b41639817f67"/>
+				<textElement verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="104" y="0" width="79" height="24" uuid="8f8a1091-c258-4736-8aca-61ca3f9e262c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{pagamento_valor_1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="24" width="183" height="1" uuid="9c26deea-1df6-4886-90db-7d43482ccf96"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="42" width="183" height="20" uuid="0c258a53-df65-41e6-946f-3d7454194611"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{usuario_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="25" width="183" height="17" uuid="3704d756-982b-461f-bd6a-749d124aa1b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Funcionario (a):]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
