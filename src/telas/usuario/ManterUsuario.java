@@ -3,6 +3,7 @@ package telas.usuario;
 import dao.UsuarioDAO;
 import entidades.Usuario;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.table.DefaultTableModel;
@@ -11,12 +12,15 @@ import util.Mensagens;
 
 public class ManterUsuario extends javax.swing.JInternalFrame {
 
-    private List<Usuario> listaUsu;
+    private List<Usuario> listaUsuario;
     private final UsuarioDAO usuDao;
     private final Principal telaPrincipal;
 
     public ManterUsuario(Principal telaPrincipal) {
         initComponents();
+
+        listaUsuario = new ArrayList<>();
+
         this.usuDao = new UsuarioDAO();
         this.telaPrincipal = telaPrincipal;
         preencherTabela();
@@ -27,7 +31,7 @@ public class ManterUsuario extends javax.swing.JInternalFrame {
         String nome = txtNome.getText();
 
         try {
-            this.listaUsu = usuDao.listarTodosNomes(nome);
+            this.listaUsuario = usuDao.listarTodosNomes(nome);
 
             DefaultTableModel modelo = (DefaultTableModel) tabUsuario.getModel();
 
@@ -35,12 +39,12 @@ public class ManterUsuario extends javax.swing.JInternalFrame {
                 modelo.removeRow(linha);
             }
 
-            for (Usuario us : listaUsu) {
-                modelo.addRow(new String[]{us.getNome(), (us.isAdm()) ? "Sim" : "Não", (us.isAtivo()) ? "Sim" : "Não"});
+            for (Usuario us : listaUsuario) {
+                modelo.addRow(new String[]{us.getNome(), (us.isAdm() ? "Sim" : "Não"), (us.isAtivo() ? "Sim" : "Não")});
 
             }
         } catch (SQLException ex) {
-            Mensagens.erro("Problema ao listar os Usuários: " + ex.getMessage());
+            Mensagens.erro("Problema ao listar os Membros: " + ex.getMessage());
         }
 
     }
@@ -174,9 +178,9 @@ public class ManterUsuario extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tabUsuario);
         if (tabUsuario.getColumnModel().getColumnCount() > 0) {
             tabUsuario.getColumnModel().getColumn(0).setResizable(false);
-            tabUsuario.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tabUsuario.getColumnModel().getColumn(0).setPreferredWidth(300);
             tabUsuario.getColumnModel().getColumn(1).setResizable(false);
-            tabUsuario.getColumnModel().getColumn(1).setPreferredWidth(20);
+            tabUsuario.getColumnModel().getColumn(1).setPreferredWidth(10);
             tabUsuario.getColumnModel().getColumn(2).setResizable(false);
             tabUsuario.getColumnModel().getColumn(2).setPreferredWidth(10);
         }
@@ -213,7 +217,7 @@ public class ManterUsuario extends javax.swing.JInternalFrame {
         if (linha < 0) {
             Mensagens.atenção("Por favor, selecione uma linha para alterar");
         } else {
-            JDialog dialogo = new CadastroUsuario(telaPrincipal, true, usuDao, listaUsu.get(linha));
+            JDialog dialogo = new CadastroUsuario(telaPrincipal, true, usuDao, listaUsuario.get(linha));
             dialogo.setVisible(true);
         }
 
@@ -230,7 +234,7 @@ public class ManterUsuario extends javax.swing.JInternalFrame {
             Mensagens.atenção("Por favor, selecione usuário para remoção.");
         } else {
 
-            Usuario us = listaUsu.get(linha);
+            Usuario us = listaUsuario.get(linha);
 
             if (Mensagens.perguntar("Tem certeza que deseja remover o Usuario " + us.getNome()) == 0) {
                 try {
