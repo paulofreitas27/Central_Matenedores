@@ -1,5 +1,6 @@
 package relatorios;
 
+import java.util.Date;
 import java.util.HashMap;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -49,6 +50,17 @@ public class ImprimirRelatorio {
 
         imprimirRelatorio(false, filtro, arquivo);
 
+    }
+
+    public static void relatorioPorPeriodo(Date dataInicial, Date dataFinal) throws JRException {
+        String arquivo = "/relatorios/entrada/EntradaPorPeriodo.jasper";
+
+        HashMap filtro = new HashMap();
+
+        filtro.put("data_inicial", dataInicial);
+        filtro.put("data_final", dataFinal);
+
+        imprimirRelatorio(false, filtro, arquivo);
     }
 
 }

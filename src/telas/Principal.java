@@ -6,10 +6,12 @@ import java.awt.Dimension;
 import java.sql.SQLException;
 import javax.swing.JInternalFrame;
 import telas.caixa.FecharCaixa;
+import telas.relatorio.RelatorioCaixa;
 import telas.compromisso.CompromissoDeus;
 import telas.membro.ManterMembro;
 import telas.projeto.ManterProjeto;
 import telas.receber.ConsultarCompromisso;
+import telas.relatorio.RelatorioPorPeriodo;
 import telas.usuario.ManterUsuario;
 import util.Mensagens;
 
@@ -49,6 +51,9 @@ public class Principal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
 
         jMenuItem6.setText("jMenuItem6");
 
@@ -149,6 +154,26 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setText("Relatórios");
+
+        jMenuItem7.setText("Relatório Por Caixa");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem7);
+
+        jMenuItem8.setText("Relatório Por Período");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem8);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -212,6 +237,14 @@ public class Principal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        iniciarVinculo(new RelatorioCaixa(this.usu));
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        iniciarVinculo(new RelatorioPorPeriodo());
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktop;
@@ -219,6 +252,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -226,6 +260,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 

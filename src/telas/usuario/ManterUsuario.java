@@ -5,7 +5,6 @@ import entidades.Usuario;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import telas.Principal;
 import util.Mensagens;
