@@ -1,4 +1,4 @@
-package telas.receber;
+package telas.compromisso;
 
 import dao.BoletoDAO;
 import dao.FormaPagamentoDAO;

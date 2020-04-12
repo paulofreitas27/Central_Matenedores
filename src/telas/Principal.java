@@ -10,7 +10,7 @@ import telas.relatorio.RelatorioCaixa;
 import telas.compromisso.CompromissoDeus;
 import telas.membro.ManterMembro;
 import telas.projeto.ManterProjeto;
-import telas.receber.ConsultarCompromisso;
+import telas.compromisso.ConsultarCompromisso;
 import telas.relatorio.RelatorioPorPeriodo;
 import telas.usuario.ManterUsuario;
 import util.Mensagens;
