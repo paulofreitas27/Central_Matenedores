@@ -6,6 +6,7 @@ import entidades.Usuario;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import util.TamanhoFixo;
 
 public class SelecaoUsuario extends javax.swing.JDialog {
 
@@ -51,6 +52,7 @@ public class SelecaoUsuario extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel1.setText("Nome:");
 
+        txtNome.setDocument(new TamanhoFixo(60));
         txtNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {

@@ -5,6 +5,7 @@ import entidades.Membro;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import util.Mensagens;
+import util.TamanhoFixo;
 
 public class CadastroMembro extends javax.swing.JDialog {
 
@@ -68,6 +69,7 @@ public class CadastroMembro extends javax.swing.JDialog {
 
         jLabel3.setText("Celular:");
 
+        txtNome.setDocument(new TamanhoFixo(60));
         txtNome.setToolTipText("No maxímo 60 caractere.");
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar.png"))); // NOI18N

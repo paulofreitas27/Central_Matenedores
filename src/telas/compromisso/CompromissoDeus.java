@@ -158,6 +158,12 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Valor por Parcela:");
 
+        txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -299,6 +305,14 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void txtValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyTyped
+
+        String caracteres = "0987654321,";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtValorKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -378,7 +392,7 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
 
         this.compromisso.setDiaVencimento(txtDataVencimento.getDate());
         this.compromisso.setTotalNumParcela((Integer) txtNumPasrcelas.getValue());
-        this.compromisso.setValor_parcela(Double.parseDouble(txtValor.getText()));
+        this.compromisso.setValor_parcela(Double.parseDouble(txtValor.getText().trim().replace(",", ".")));
 
         this.compromisso.setListaBoletos(new ArrayList<>());
 

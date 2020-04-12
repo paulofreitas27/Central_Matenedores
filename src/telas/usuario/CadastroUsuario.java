@@ -92,8 +92,10 @@ public class CadastroUsuario extends javax.swing.JDialog {
         }
 
         txtNome.setDocument(new TamanhoFixo(60));
+        txtNome.setDocument(new TamanhoFixo(60));
         txtNome.setToolTipText("No maxímo 60 caractere.");
 
+        txtSenha.setDocument(new TamanhoFixo(10));
         txtSenha.setToolTipText("No maxímo 60 caractere");
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/novo.png"))); // NOI18N

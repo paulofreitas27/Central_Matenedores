@@ -54,6 +54,7 @@ public class SelecaoMembro extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel1.setText("Filtro: ");
 
+        txtNome.setDocument(new TamanhoFixo(60));
         txtNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -65,10 +66,14 @@ public class SelecaoMembro extends javax.swing.JDialog {
         jLabel3.setText("Fone:");
 
         txtFone.setDocument(new TamanhoFixo(10));
+        txtFone.setDocument(new TamanhoFixo(10));
         txtFone.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtFone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtFoneKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFoneKeyTyped(evt);
             }
         });
 
@@ -221,6 +226,13 @@ public class SelecaoMembro extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtFoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFoneKeyTyped
+        String caracteres = "0987654321-";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtFoneKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

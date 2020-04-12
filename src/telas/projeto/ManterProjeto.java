@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import telas.Principal;
 import util.Mensagens;
+import util.TamanhoFixo;
 
 public class ManterProjeto extends javax.swing.JInternalFrame {
 
@@ -141,6 +142,7 @@ public class ManterProjeto extends javax.swing.JInternalFrame {
         jLabel1.setText("Filtro: ");
         jPanel1.add(jLabel1, java.awt.BorderLayout.WEST);
 
+        txtNome.setDocument(new TamanhoFixo(60));
         txtNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {

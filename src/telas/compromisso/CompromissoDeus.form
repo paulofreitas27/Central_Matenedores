@@ -261,6 +261,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtValor">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtValorKeyTyped"/>
+          </Events>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="txtDataVencimento">
         </Component>

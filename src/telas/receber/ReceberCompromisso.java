@@ -134,6 +134,11 @@ public class ReceberCompromisso extends javax.swing.JDialog {
         jLabel3.setText("Valor:");
 
         txtValorP.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtValorP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorPKeyTyped(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/add.png"))); // NOI18N
         jButton1.setText("Adicionar");
@@ -289,7 +294,7 @@ public class ReceberCompromisso extends javax.swing.JDialog {
             pag.setBoleto(boleto);
             pag.setCaixa(cai);
             pag.setFormaPagamento((FormaPagamento) jcFormaPagamento.getSelectedItem());
-            pag.setValor(Double.parseDouble(txtValorP.getText()));
+            pag.setValor(Double.parseDouble(txtValorP.getText().trim().replace(",", ".")));
 
             boleto.getListaPagamento().add(pag);
 
@@ -356,6 +361,13 @@ public class ReceberCompromisso extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void txtValorPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorPKeyTyped
+        String caracteres = "0987654321,";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtValorPKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -398,7 +410,7 @@ public class ReceberCompromisso extends javax.swing.JDialog {
     private void preencherFormBoleto() {
         txtNumParcela.setText(String.valueOf(boleto.getNumeroParcela()));
         txtDataVencimento.setDate(boleto.getDataVencimento());
-        txtValor.setText(String.valueOf(boleto.getValor()));
+        txtValor.setText(String.valueOf(boleto.getValor()).replace(".", ","));
     }
 
     private void preencherTabelaPagamento() {
@@ -410,10 +422,10 @@ public class ReceberCompromisso extends javax.swing.JDialog {
         }
 
         for (Pagamento pg : boleto.getListaPagamento()) {
-            modelo.addRow(new String[]{pg.getFormaPagamento().getNome(), String.valueOf(pg.getValor())});
+            modelo.addRow(new String[]{pg.getFormaPagamento().getNome(), String.valueOf(pg.getValor()).replace(".", ",")});
         }
 
-        txtValorPago.setText(String.valueOf(valorPago));
+        txtValorPago.setText(String.valueOf(valorPago).replace(".", ","));
 
     }
 

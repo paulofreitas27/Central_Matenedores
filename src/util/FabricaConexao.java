@@ -35,7 +35,6 @@ public class FabricaConexao {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possivel estabelecer uma conexão com o Banco de Dados." + ex.getMessage());
             System.exit(0);
-
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Arquivo de Configuração do Banco de Dados não encontrado!");
             System.exit(0);
