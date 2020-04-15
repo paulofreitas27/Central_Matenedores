@@ -347,7 +347,7 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
         modelCidade.addElement("Selecione um projeto");
 
         try {
-            for (Projeto pj : projDao.listarTodosNomes("")) {
+            for (Projeto pj : projDao.listarTodosAtivos()) {
                 modelCidade.addElement(pj);
             }
         } catch (SQLException ex) {

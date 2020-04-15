@@ -100,6 +100,33 @@ public class ProjetoDAO {
 
         return lista;
     }
+    
+    public List<Projeto> listarTodosAtivos() throws SQLException {
+
+        FabricaConexao con;
+
+        PreparedStatement st;
+        ResultSet rs;
+
+        con = FabricaConexao.getInstancia();
+
+        String sql = "SELECT * FROM projeto where ativo = true order by nome asc";
+
+        st = con.getConexao().prepareStatement(sql);
+
+        List<Projeto> lista = new ArrayList<>();
+
+        rs = st.executeQuery();
+
+        while (rs.next()) {
+            lista.add(popular(rs));
+        }
+
+        rs.close();
+        st.close();
+
+        return lista;
+    }
 
     public Projeto listarCodigo(Integer codigo) throws SQLException {
 
