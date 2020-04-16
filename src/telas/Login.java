@@ -4,18 +4,17 @@ import dao.UsuarioDAO;
 import entidades.Usuario;
 import java.sql.SQLException;
 import util.Mensagens;
-import util.IconeTela;
 
 public class Login extends javax.swing.JFrame {
-
+    
     private Usuario usu;
     private Principal telaPrincipal;
     private final UsuarioDAO usuDao;
-
+    
     public Login() {
-
+        
         this.usuDao = new UsuarioDAO();
-
+        
         initComponents();
     }
 
@@ -122,7 +121,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-
+        
         System.exit(0);
 
     }//GEN-LAST:event_btSairActionPerformed
@@ -183,7 +182,11 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                try {
+                    new Login().setVisible(true);
+                } catch (Exception ex) {
+                    Mensagens.erro(ex.getMessage());
+                }
             }
         });
     }
@@ -206,5 +209,5 @@ public class Login extends javax.swing.JFrame {
         }
         return senha;
     }
-
+    
 }

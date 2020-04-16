@@ -100,8 +100,8 @@ public class ReceberCompromisso extends javax.swing.JDialog {
                 .addComponent(txtDataVencimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(txtNumParcela, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNumParcela, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -396,7 +396,7 @@ public class ReceberCompromisso extends javax.swing.JDialog {
 
         modelCidade.removeAllElements();
 
-        modelCidade.addElement("Selecione um projeto");
+        modelCidade.addElement("Selecione uma forma de pagamento");
 
         try {
             for (FormaPagamento fp : formPagDao.listarTodos()) {
