@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import javax.swing.JInternalFrame;
 import telas.caixa.FecharCaixa;
 import telas.relatorio.RelatorioCaixa;
-import telas.compromisso.CompromissoDeus;
 import telas.membro.ManterMembro;
 import telas.projeto.ManterProjeto;
 import telas.compromisso.ConsultarCompromisso;
@@ -40,7 +39,6 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem6 = new javax.swing.JMenuItem();
         jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         desktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -65,17 +63,6 @@ public class Principal extends javax.swing.JFrame {
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
         jToolBar1.setPreferredSize(new java.awt.Dimension(100, 30));
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/nova.png"))); // NOI18N
-        jButton1.setText("Cadastro Compromisso");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton1);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/procurar.png"))); // NOI18N
         jButton2.setText("Consultar Compromisso");
@@ -226,12 +213,6 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        iniciarVinculo(new CompromissoDeus(this, this.usu));
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         iniciarVinculo(new ConsultarCompromisso(this, this.usu));
@@ -249,7 +230,6 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktop;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

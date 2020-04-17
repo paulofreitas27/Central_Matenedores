@@ -39,6 +39,8 @@ public class Login extends javax.swing.JFrame {
         setTitle("Sistema Central de Matenedores");
         setIconImage(util.IconeTela.buscarIcone(this));
 
+        txtSenha.setText("qwe123");
+
         jLabel1.setText("C.P.F:");
 
         jLabel2.setText("Senha:");
@@ -66,6 +68,7 @@ public class Login extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtLogin.setText("123.456.789-10");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoPrincipal.png"))); // NOI18N
 

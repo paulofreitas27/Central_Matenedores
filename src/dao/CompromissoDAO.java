@@ -1,4 +1,3 @@
-
 package dao;
 
 import entidades.Compromisso;
@@ -46,6 +45,27 @@ public class CompromissoDAO {
         if (rs.next()) {
             comp.setCodigo(rs.getInt(1));
         }
+
+        st.close();
+
+    }
+
+    public void alterar(Compromisso comp) throws SQLException {
+        FabricaConexao con;
+        PreparedStatement st;
+
+        con = FabricaConexao.getInstancia();
+
+        String sql = "update compromisso set dia_vencimento = ?, valor_parcela = ?, usuario_cpf = ? where codigo = ? ";
+
+        st = con.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+        st.setDate(1, new Date(comp.getDiaVencimento().getTime()));
+        st.setDouble(2, comp.getValor_parcela());
+        st.setString(3, comp.getUsuario().getCpf());
+        st.setInt(4, comp.getCodigo());
+
+        st.execute();
 
         st.close();
 
@@ -141,6 +161,23 @@ public class CompromissoDAO {
         comp.setQuitado(rs.getBoolean("quitado"));
 
         return comp;
+    }
+
+    public void delete(Compromisso comp) throws SQLException {
+        FabricaConexao con;
+        PreparedStatement st;
+
+        con = FabricaConexao.getInstancia();
+
+        String sql = "delete from compromisso where codigo = ?";
+
+        st = con.getConexao().prepareStatement(sql);
+
+        st.setInt(1, comp.getCodigo());
+
+        st.execute();
+
+        st.close();
     }
 
 }

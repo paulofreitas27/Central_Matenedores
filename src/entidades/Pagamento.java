@@ -1,4 +1,3 @@
-
 package entidades;
 
 import java.util.Date;
@@ -17,6 +16,10 @@ public class Pagamento {
 
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
+    }
+
+    public Integer getCodigo() {
+        return codigo;
     }
 
     public Date getDataPagamento() {

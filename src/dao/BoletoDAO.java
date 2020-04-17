@@ -32,6 +32,26 @@ public class BoletoDAO {
 
     }
 
+    public void alterar(Boleto bo) throws SQLException {
+        FabricaConexao con;
+        PreparedStatement st;
+
+        con = FabricaConexao.getInstancia();
+
+        String sql = "update boleto set data_vencimento = ?, valor = ? where codigo = ? ;";
+
+        st = con.getConexao().prepareStatement(sql);
+
+        st.setDate(1, new Date(bo.getDataVencimento().getTime()));
+        st.setDouble(2, bo.getValor());
+        st.setInt(3, bo.getCodigo());
+
+        st.execute();
+
+        st.close();
+
+    }
+
     public void confirmarPagamento(Boleto boleto) throws SQLException {
         FabricaConexao con;
         PreparedStatement st;
@@ -39,6 +59,24 @@ public class BoletoDAO {
         con = FabricaConexao.getInstancia();
 
         String sql = "UPDATE boleto SET quitado = true, valor = ? where codigo = ?";
+
+        st = con.getConexao().prepareStatement(sql);
+
+        st.setDouble(1, boleto.getValor());
+        st.setInt(2, boleto.getCodigo());
+
+        st.execute();
+
+        st.close();
+    }
+    
+    public void cancelarPagamento(Boleto boleto) throws SQLException {
+        FabricaConexao con;
+        PreparedStatement st;
+
+        con = FabricaConexao.getInstancia();
+
+        String sql = "UPDATE boleto SET quitado = false, valor = ? where codigo = ?";
 
         st = con.getConexao().prepareStatement(sql);
 
@@ -91,6 +129,23 @@ public class BoletoDAO {
         bo.setQuitado(rs.getBoolean("quitado"));
 
         return bo;
+    }
+
+    public void delete(Boleto bo) throws SQLException {
+        FabricaConexao con;
+        PreparedStatement st;
+
+        con = FabricaConexao.getInstancia();
+
+        String sql = "delete from boleto where codigo = ?";
+
+        st = con.getConexao().prepareStatement(sql);
+
+        st.setInt(1, bo.getCodigo());
+
+        st.execute();
+
+        st.close();
     }
 
 }

@@ -1,11 +1,11 @@
 package telas.compromisso;
 
-import telas.telaUtil.SelecaoMembro;
 import dao.BoletoDAO;
 import dao.CompromissoDAO;
 import dao.ProjetoDAO;
 import entidades.Boleto;
 import entidades.Compromisso;
+import entidades.Membro;
 import entidades.Projeto;
 import entidades.Usuario;
 import java.sql.SQLException;
@@ -14,27 +14,28 @@ import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-import telas.Principal;
 import util.Mensagens;
 
-public class CompromissoDeus extends javax.swing.JInternalFrame {
+public class CadastroCompromisso extends javax.swing.JDialog {
 
     private final Compromisso compromisso;
     private final CompromissoDAO compDao;
     private final BoletoDAO boDao;
-    private final Principal tela;
     private final ProjetoDAO projDao;
     private final Calendar calendario = Calendar.getInstance();
 
-    public CompromissoDeus(Principal tela, Usuario usu) {
+    public CadastroCompromisso(java.awt.Frame parent, boolean modal, Membro membroSelecionado, Usuario usu) {
+        super(parent, modal);
         initComponents();
         this.compromisso = new Compromisso();
+        this.compromisso.setMembro(membroSelecionado);
+        this.compromisso.setUsuario(usu);
         this.compDao = new CompromissoDAO();
         this.boDao = new BoletoDAO();
-        this.compromisso.setUsuario(usu);
-        this.tela = tela;
         this.projDao = new ProjetoDAO();
-        this.preecherjComboCompromisso();
+        this.preencherFormularioMembro();
+        this.preecherjComboProjeto();
+
     }
 
     /**
@@ -46,14 +47,11 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtFone = new javax.swing.JFormattedTextField();
-        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jcProjeto = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
@@ -67,25 +65,11 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
             100, //valor maximo
             1); //step
         txtNumPasrcelas = new javax.swing.JSpinner(modeSpinner);
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
-        setClosable(true);
-        setTitle("Cadastro de Compromisso");
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar.png"))); // NOI18N
-        jButton2.setText("Adicionar Compromisso");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excluir.png"))); // NOI18N
-        jButton3.setText("Cancelar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Compromisso");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Membro"));
 
@@ -102,14 +86,6 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/procurar.png"))); // NOI18N
-        jButton1.setText("Buscar Membro");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -122,9 +98,8 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtFone, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtFone, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                        .addGap(178, 178, 178))
                     .addComponent(txtNome))
                 .addContainerGap())
         );
@@ -138,9 +113,8 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Compromisso"));
@@ -207,6 +181,22 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar.png"))); // NOI18N
+        jButton2.setText("Adicionar Compromisso");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excluir.png"))); // NOI18N
+        jButton3.setText("Cancelar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -234,30 +224,12 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        SelecaoMembro dialogo = new SelecaoMembro(this.tela, true);
-
-        dialogo.setVisible(true);
-
-        if (dialogo.getMembro() == null) {
-
-            limparFormularioMembro();
-
-        } else {
-            this.compromisso.setMembro(dialogo.getMembro());
-
-            preencherFormularioMembro();
-        }
-
-
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jcProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcProjetoActionPerformed
 
@@ -269,8 +241,15 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
                 this.compromisso.setProjeto((Projeto) jcProjeto.getSelectedItem());
             }
         }
-
     }//GEN-LAST:event_jcProjetoActionPerformed
+
+    private void txtValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyTyped
+
+        String caracteres = "0987654321,";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtValorKeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
@@ -296,26 +275,14 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
 
         }
 
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         dispose();
-
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void txtValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyTyped
-
-        String caracteres = "0987654321,";
-        if (!caracteres.contains(evt.getKeyChar() + "")) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtValorKeyTyped
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -338,7 +305,7 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
         txtFone.setText(this.compromisso.getMembro().getFone());
     }
 
-    private void preecherjComboCompromisso() {
+    private void preecherjComboProjeto() {
 
         DefaultComboBoxModel modelCidade = (DefaultComboBoxModel) jcProjeto.getModel();
 
@@ -353,11 +320,6 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             Mensagens.erro("Problema ao preencher o Lista de Projetos: " + ex.getMessage());
         }
-    }
-
-    private void limparFormularioMembro() {
-        txtNome.setText("");
-        txtFone.setText("");
     }
 
     private void limparFormularioCompromisso() {
@@ -414,4 +376,5 @@ public class CompromissoDeus extends javax.swing.JInternalFrame {
         }
 
     }
+
 }

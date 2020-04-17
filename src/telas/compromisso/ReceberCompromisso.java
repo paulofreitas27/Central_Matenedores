@@ -8,7 +8,6 @@ import entidades.Caixa;
 import entidades.FormaPagamento;
 import entidades.Pagamento;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;

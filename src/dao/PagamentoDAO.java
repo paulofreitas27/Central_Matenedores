@@ -1,4 +1,3 @@
-
 package dao;
 
 import entidades.Pagamento;
@@ -43,7 +42,7 @@ public class PagamentoDAO {
 
         con = FabricaConexao.getInstancia();
 
-        String sql = "SELECT * FROM pagamento where caixa_codigo";
+        String sql = "SELECT * FROM pagamento where caixa_codigo = ?";
 
         st = con.getConexao().prepareStatement(sql);
 
@@ -104,6 +103,53 @@ public class PagamentoDAO {
         st.close();
 
         return valor;
+    }
+
+    public List<Pagamento> listarTodosBoleto(Integer codigo) throws SQLException {
+
+        FabricaConexao con;
+
+        PreparedStatement st;
+
+        ResultSet rs;
+
+        con = FabricaConexao.getInstancia();
+
+        String sql = "SELECT * FROM pagamento where boleto_codigo = ?";
+
+        st = con.getConexao().prepareStatement(sql);
+
+        List<Pagamento> lista = new ArrayList<>();
+
+        st.setInt(1, codigo);
+
+        rs = st.executeQuery();
+
+        while (rs.next()) {
+            lista.add(popular(rs));
+        }
+
+        rs.close();
+        st.close();
+
+        return lista;
+    }
+
+    public void delete(Integer codigo) throws SQLException {
+        FabricaConexao con;
+        PreparedStatement st;
+
+        con = FabricaConexao.getInstancia();
+
+        String sql = "delete from pagamento where codigo = ?";
+
+        st = con.getConexao().prepareStatement(sql);
+
+        st.setInt(1, codigo);
+
+        st.execute();
+
+        st.close();
     }
 
 }
